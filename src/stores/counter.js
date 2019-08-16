@@ -1,5 +1,5 @@
 import React from 'react'
-import { useLocalStore } from 'mobx-react'
+import { useLocalStore } from 'mobx-react-lite'
 
 function createStore() {
 	return {
@@ -20,6 +20,10 @@ export function StoreProvider({ children }) {
 	return <StoreContext.Provider value={store}>{children}</StoreContext.Provider>
 }
 
-export function useStores() {
-	return React.useContext(StoreContext)
+export function useStore() {
+	const store = React.useContext(StoreContext)
+	if (!store) {
+		throw new Error('에바')
+	}
+	return store
 }
